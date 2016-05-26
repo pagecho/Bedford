@@ -1,0 +1,26 @@
+html
+	// i18n
+	+_('Blog', '博客', 'zh_cn')
+	+_('Albums', '相册', 'zh_cn')
+	+_('Categories', '分类', 'zh_cn')
+	+_('Archive', '归档', 'zh_cn')
+	+_('Links', '链接', 'zh_cn')
+	+_('About', '关于', 'zh_cn')
+	+_('Search', '搜索文章', 'zh_cn')
+	+_('Recent', '最新文章', 'zh_cn')
+	head
+		meta(name="viewport", content="width=device-width")
+		title 请求的页面不存在
+		+load('/template/style.scss')
+	body
+		.body404
+			.info404
+				header#header404.clearfix
+					.site-name404
+						i= '404'
+				section
+					.title404
+						p= '每一个平凡的日常<br>都是连续发生中的奇迹'
+					a.index404(href='/', real='nofollow')= '返回首页'
+				footer#footer404= '© 2015 '
+					a(href='/', real='nofollow')= site.title

@@ -1,0 +1,8 @@
++_('&laquo; Prev', '&laquo; 上一页', 'zh_cn')
++_('Next &raquo;', '下一页 &raquo;', 'zh_cn')
+if paginator.has_pre or paginator.has_next
+	.page-navigator.clearfix:.in-mark
+		if paginator.has_pre
+			a.pre(href=paginator.pre_url)= _('&laquo; Prev')
+		if paginator.has_next
+			a.next(href=paginator.next_url)= _('Next &raquo;')

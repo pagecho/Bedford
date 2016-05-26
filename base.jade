@@ -1,0 +1,78 @@
+html
+	// i18n
+	+_('Blog', '博客', 'zh_cn')
+	+_('Albums', '相册', 'zh_cn')
+	+_('Categories', '分类', 'zh_cn')
+	+_('Archive', '归档', 'zh_cn')
+	+_('Links', '链接', 'zh_cn')
+	+_('About', '关于', 'zh_cn')
+	+_('Search', '搜索文章', 'zh_cn')
+	+_('Recent', '最新文章', 'zh_cn')
+	head
+		+mobile_meta()
+		meta(name="keywords", content=site.configs.keywords.escaped)
+		meta(name="description", content=site.raw_content.escaped)
+		block title
+			title= request.args.s or post.title or tags.join('+') or category.title or site.title
+		+load('/template/style.scss')
+		+load('jquery')
+	body
+		.side-click-mask
+		.move-block
+			header#header.clearfix
+				.in-mark
+					.container
+						.site-name
+							a(href='/')
+								img.site-avatar(src= site.avatar(width=80, height=80, fixed=True))
+								#logo= site.title
+							if request.path == '/'	
+								h1.title= site.title
+			section#body
+				block content
+			asid#secondary
+				.sidebar
+					section.widget
+						#nav-menu
+							+a_with_selected('/' or '/post', _('Blog'),'nav_blog')
+							if has('categories')
+								+a_with_selected('/categories', _('Categories'))
+							+a_with_selected('/archive', _('Archive'))
+							for p in get_data(status='pages', type='post', limit=5, with_page=False, sort='position')
+								+a_with_selected('/'+p.path, _(p.filename.split('.')[0].title()))
+				
+					section.widget
+						.widget-title= _('Recent')
+						sideentries = get_data(type='post', page=1, limit=8, sort='desc', with_page=False)
+						ul.widget-list.widget-list2
+							for post in sideentries
+								li
+									h3
+										a(href=post.url)
+											span.date-day= post.date.format("%d")
+											span.date-month= post.date.format("/%b")
+											post.title
+					section.widget
+						.widget-title= _('Search')
+						form#search
+							input#search_value.text(placeholder="Search",type="text",value=request.args.s, onkeyup="if (event.keyCode == 13) search();")
+			footer#footer
+				.in-mark
+					.container= '© 2015 '
+						a(href='/', real="nofollow")= site.title
+						span= 'Powered by '
+							a(rel="nofollow", target="_blank", href="https://www.farbox.com")= 'FarBox'
+							. Theme by
+							a(rel="nofollow", target="_blank", href="http://chopstack.com") cho
+		button.side-click.click-hamburger
+			span.bar
+
+		+load('/template/index.js')
+		script
+			function search() {
+				if (document.getElementById('search_value').value) {
+				  location.href = 'http://' + location.host + '?s=' + document.getElementById('search_value').value;
+				}
+				return false;
+			 }
+			if (window!=top){top.location.href = window.location.href;}

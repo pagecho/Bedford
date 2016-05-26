@@ -1,0 +1,21 @@
+extends base
+block title
+	title= "归档 - " + site.title
+block content
+	.container
+		#main.post-page
+			.res-cons
+				.post
+					.post-content-pages.in-mark
+						h1.post-title= '文章归档'
+						#archives
+							entries = get_data(type='post',limit=300, sort='desc').group('-date:year')
+							for sub_title, posts in entries
+								.al_year= sub_title
+								ul.al_mon_list
+									for post in posts
+										li
+											span.date= post.date.format("%m/%d")
+											a(href=post.url, title=post.title)= post.title
+												
+				include include/paginator.jade

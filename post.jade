@@ -1,0 +1,27 @@
+extends base
+block title
+	title= post.title + " - " + site.title
+block content
+	.container
+		#main.post-page
+			.res-cons
+				article.post
+					header.post-meta
+						date.post-date= post.date.format('%B %d, %Y')
+						h1.post-title= post.title
+					if post.tags
+						.tags.in-mark
+							for tag in post.tags
+								a(rel="nofollow",href="/tag/{{tag}}")= tag
+					section.post-content= post.content
+					//- .in-mark:.post-footer
+						.author-avatar
+							img(src= site.avatar)
+						.autor-meta
+							b="cho"
+							span="学生, 湖南长沙"
+				include include/comments.jade
+	script 
+		$(document).ready(function(){
+			$("#nav_blog").addClass("current");
+		});

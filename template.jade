@@ -1,0 +1,17 @@
+html
+	head
+		meta(name="viewport", content="width=device-width")
+		title 请求的页面不存在
+		load('http://cdn.staticfile.org/normalize/3.0.1/normalize.min.css /template/blog/style.css')
+	body
+		.body404
+			.info404
+				header#header404.clearfix
+					.site-name404
+						i= '404'
+				section
+					.title404
+						p= '每一个平凡的日常<br>都是连续发生中的奇迹'
+					a.index404(href='/', real='nofollow')= '返回首页'
+				footer#footer404= '© 2015 '
+					a(href='/', real='nofollow')= site.title
